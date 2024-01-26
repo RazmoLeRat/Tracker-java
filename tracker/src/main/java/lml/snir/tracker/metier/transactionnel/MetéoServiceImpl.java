@@ -11,26 +11,26 @@ package lml.snir.tracker.metier.transactionnel;
  */
 
 import java.util.List;
-import lml.snir.controleacces.metier.entity.Badge;
-import lml.snir.controleacces.physique.data.BadgeDataService;
-import lml.snir.controleacces.physique.data.PhysiqueDataFactory;
+import lml.snir.tracker.metier.entities.Metéo;
+import lml.snir.tracker.physique.data.MetéoDataService;
+import lml.snir.tracker.physique.data.PhysiqueDataFactory;
 
-public class BadgeServiceImpl implements BadgeService {
+public class MetéoServiceImpl implements MetéoService {
     
-    private final BadgeDataService badgeSrv;
+    private final MetéoDataService metéoSrv;
 
-    public BadgeServiceImpl() throws Exception {
-        badgeSrv = PhysiqueDataFactory.getBadgeDataService();
+    public MetéoServiceImpl() throws Exception {
+        metéoSrv = PhysiqueDataFactory.getMetéoDataService();
     }
 
     @Override
-    public Badge add(Badge badge) throws Exception {
+    public Metéo add(Metéo metéo) throws Exception {
         try {
-            return this.badgeSrv.add(badge);
+            return this.metéoSrv.add(metéo);
         } catch (Exception ex) {
             String st = ex.getMessage();
             if (st.contains("SQL : 19")) {
-                throw new Exception("Badge déjà enregistré");
+                throw new Exception("Condition metéo déjà enregistré");
             } else {
                 throw ex;
             }
@@ -38,37 +38,52 @@ public class BadgeServiceImpl implements BadgeService {
     }
 
     @Override
-    public void remove(Badge badge) throws Exception {
-        this.badgeSrv.remove(badge);
+    public void remove(Metéo metéo) throws Exception {
+        this.metéoSrv.remove(metéo);
     }
 
     @Override
-    public void update(Badge badge) throws Exception {
-        this.badgeSrv.update(badge);
+    public void update(Metéo metéo) throws Exception {
+        this.metéoSrv.update(metéo);
     }
 
     @Override
-    public List<Badge> getAll(int debut, int count) throws Exception {
-        return this.badgeSrv.getAll(debut, count);
+    public List<Metéo> getAll(int debut, int count) throws Exception {
+        return this.metéoSrv.getAll(debut, count);
     }
 
     @Override
-    public Badge getByContenu(String contenu) throws Exception {
-        return this.badgeSrv.getByContenu(contenu);
-    }
-
-    @Override
-    public Badge getById(Long id) throws Exception {
-        return this.badgeSrv.getById(id);
+    public Metéo getById(Long id) throws Exception {
+        return this.metéoSrv.getById(id);
     }
 
     @Override
     public long getCount() throws Exception {
-        return this.badgeSrv.getCount();
+        return this.metéoSrv.getCount();
     }
 
     @Override
-    public List<Badge> getAll() throws Exception {
-        return this.badgeSrv.getAll();
+    public List<Metéo> getAll() throws Exception {
+        return this.metéoSrv.getAll();
+    }
+
+    @Override
+    public Metéo getByDate(String date) throws Exception {
+        return this.metéoSrv.getByDate(date);
+    }
+
+    @Override
+    public Metéo getByHeure(String heure) throws Exception {
+        return this.metéoSrv.getByHeure(heure);
+    }
+
+    @Override
+    public Metéo getByCondition(String condition) throws Exception {
+        return this.metéoSrv.getByCondition(condition);
+    }
+
+    @Override
+    public Metéo getByVit_vent(int vit_vent) throws Exception {
+        return this.metéoSrv.getByVit_vent(vit_vent);
     }
 }
