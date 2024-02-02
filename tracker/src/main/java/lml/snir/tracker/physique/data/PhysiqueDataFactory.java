@@ -16,12 +16,12 @@ public class PhysiqueDataFactory {
     private PhysiqueDataFactory() {
     }
 
-    private static MetéoDataService metéoDataService = null;
-    public static MetéoDataService getMetéoDataService() throws Exception {
-        if (metéoDataService == null) {
-            metéoDataService = new MetéoDataServiceJPAImpl(PU);
+    private static MeteoDataService meteoDataService = null;
+    public static MeteoDataService getMeteoDataService() throws Exception {
+        if (meteoDataService == null) {
+            meteoDataService = new MeteoDataServiceJPAImpl(PU);
         }
-        return metéoDataService;
+        return meteoDataService;
     }
     
         private static OrientationDataService orientationDataService = null;

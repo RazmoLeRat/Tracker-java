@@ -1,15 +1,18 @@
 package lml.snir.tracker.metier.entities;
 
 import java.io.Serializable;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  *
  * @author Matéo
  */
-
+@Entity
+@Table(name = "Position")
 public class Position implements Serializable {
 
     private static final long serialVersionUID = 1L;

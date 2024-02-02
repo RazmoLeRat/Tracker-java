@@ -1,13 +1,13 @@
 package lml.snir.tracker.metier;
 
-import lml.snir.tracker.metier.transactionnel.MetéoService;
-import lml.snir.tracker.metier.transactionnel.MetéoServiceImpl;
+import lml.snir.tracker.metier.transactionnel.MeteoServiceImpl;
 import lml.snir.tracker.metier.transactionnel.OrientationService;
 import lml.snir.tracker.metier.transactionnel.OrientationServiceImpl;
 import lml.snir.tracker.metier.transactionnel.PositionService;
 import lml.snir.tracker.metier.transactionnel.PositionServiceImpl;
 import lml.snir.tracker.metier.transactionnel.TrackerService;
 import lml.snir.tracker.metier.transactionnel.TrackerServiceImpl;
+import lml.snir.tracker.metier.transactionnel.MeteoService;
 
 /**
  *
@@ -16,12 +16,12 @@ import lml.snir.tracker.metier.transactionnel.TrackerServiceImpl;
 
 public class MetierFactory {  
 
-    private static MetéoService metéoService;    
-    public static MetéoService getMetéoService() throws Exception {  
-        if (metéoService == null) {
-            metéoService = new MetéoServiceImpl();
+    private static MeteoService meteoService;    
+    public static MeteoService getMeteoService() throws Exception {  
+        if (meteoService == null) {
+            meteoService = new MeteoServiceImpl();
         }
-        return metéoService;
+        return meteoService;
     }
     
     private static OrientationService orientationService;    

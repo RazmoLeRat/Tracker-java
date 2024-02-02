@@ -6,39 +6,34 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 /**
  *
  * @author Matéo
  */
-
 @Entity
-@Table(name = "Orientation")
+@Table(name = "Meteo")
 
-public class Orientation implements Serializable {
+public class Meteo implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private int inclinaison;
-    private int orient;
     private String date;
     private String heure;
-    @Transient
-    private final int nb_journee = 48;
+    private String condition;
+    private int vit_vent;
 
-    public Orientation() {
+    public Meteo() {
     }
 
-    public Orientation(int inclinaison, int orient, String date, String heure) {
+    public Meteo(String date, String heure, String condition, int vit_vent) {
+        this.condition = condition;
         this.date = date;
         this.heure = heure;
-        this.inclinaison = inclinaison;
-//        this.nb_journee = nb_journee;
-        this.orient = orient;
+        this.vit_vent = vit_vent;
     }
 
     public long getId() {
@@ -47,22 +42,6 @@ public class Orientation implements Serializable {
 
     public void setId(long Id) {
         this.id = Id;
-    }
-
-    public int getInclinaison() {
-        return this.inclinaison;
-    }
-
-    public void setInclinaison(int Inclinaison) {
-        this.inclinaison = Inclinaison;
-    }
-
-    public int getOrient() {
-        return this.orient;
-    }
-
-    public void setOrient(int Orient) {
-        this.orient = Orient;
     }
 
     public String getDate() {
@@ -81,17 +60,25 @@ public class Orientation implements Serializable {
         this.heure = Heure;
     }
 
-//    public int getNb_journee() {
-//        return this.nb_journee;
-//    }
-//
-//    public void setNb_journee(int Nb_journee) {
-//        this.nb_journee = Nb_journee;
-//    }
-    
+    public String getCondition() {
+        return this.condition;
+    }
+
+    public void setCondition(String Condition) {
+        this.condition = Condition;
+    }
+
+    public int getVit_vent() {
+        return this.vit_vent;
+    }
+
+    public void setVit_vent(int Vit_vent) {
+        this.vit_vent = Vit_vent;
+    }
+
     @Override
     public String toString() {
-        return "(" + this.orient + ") ";
+        return "(" + this.condition + ") ";
     }
 
     @Override
@@ -102,7 +89,7 @@ public class Orientation implements Serializable {
         if (obj == null) {
             return false;
         }
-        if (!(obj instanceof Orientation)) {
+        if (!(obj instanceof Meteo)) {
             return false;
         }
         return (this.hashCode() == obj.hashCode());
@@ -111,7 +98,7 @@ public class Orientation implements Serializable {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 41 * hash + (int) (this.getId() ^ (this.getId() >>>32));
+        hash = 41 * hash + (int) (this.getId() ^ (this.getId() >>> 32));
         return hash;
     }
 }
