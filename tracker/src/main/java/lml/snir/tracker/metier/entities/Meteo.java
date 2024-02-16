@@ -21,17 +21,17 @@ public class Meteo implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private String date;
+    private String datej;
     private String heure;
-    private String condition;
+    private String conditionc;
     private int vit_vent;
 
     public Meteo() {
     }
 
-    public Meteo(String date, String heure, String condition, int vit_vent) {
-        this.condition = condition;
-        this.date = date;
+    public Meteo(String datej, String heure, String conditionc, int vit_vent) {
+        this.conditionc = conditionc;
+        this.datej = datej;
         this.heure = heure;
         this.vit_vent = vit_vent;
     }
@@ -44,12 +44,12 @@ public class Meteo implements Serializable {
         this.id = Id;
     }
 
-    public String getDate() {
-        return this.date;
+    public String getDatej() {
+        return this.datej;
     }
 
-    public void setDate(String Date) {
-        this.date = Date;
+    public void setDatej(String Datej) {
+        this.datej = Datej;
     }
 
     public String getHeure() {
@@ -60,12 +60,12 @@ public class Meteo implements Serializable {
         this.heure = Heure;
     }
 
-    public String getCondition() {
-        return this.condition;
+    public String getConditionc() {
+        return this.conditionc;
     }
 
-    public void setCondition(String Condition) {
-        this.condition = Condition;
+    public void setConditionc(String Conditionc) {
+        this.conditionc = Conditionc;
     }
 
     public int getVit_vent() {
@@ -78,7 +78,7 @@ public class Meteo implements Serializable {
 
     @Override
     public String toString() {
-        return "(" + this.condition + ") ";
+        return "(" + this.conditionc + ") ";
     }
 
     @Override

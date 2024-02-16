@@ -21,11 +21,11 @@ public class MeteoDataServiceJPAImpl extends AbstracCrudServiceJPA<Meteo> implem
     }
 
     @Override
-    public Meteo getByDate(String date) throws Exception {
+    public Meteo getByDatej(String datej) throws Exception {
         Meteo meteo = null;
         try {
             this.open();
-            Query query = em.createQuery("SELECT m FROM Meteo m WHERE m.date = :fdate");
+            Query query = em.createQuery("SELECT m FROM Meteo m WHERE m.datej = :fdate");
             query.setParameter("fdate", meteo);
             meteo = (Meteo) query.getSingleResult();
         } catch (NoResultException ex) {
@@ -53,11 +53,11 @@ public class MeteoDataServiceJPAImpl extends AbstracCrudServiceJPA<Meteo> implem
     }
 
     @Override
-    public Meteo getByCondition(String condition) throws Exception {
+    public Meteo getByConditionc(String conditionc) throws Exception {
         Meteo meteo = null;
         try {
             this.open();
-            Query query = em.createQuery("SELECT m FROM Meteo m WHERE m.condition = :fcondition");
+            Query query = em.createQuery("SELECT m FROM Meteo m WHERE m.conditionc = :fcondition");
             query.setParameter("fcondition", meteo);
             meteo = (Meteo) query.getSingleResult();
         } catch (NoResultException ex) {

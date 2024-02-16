@@ -13,8 +13,8 @@ import lml.snir.tracker.metier.entities.Meteo;
  * @author Matéo
  */
 public interface MeteoDataService extends CrudService<Meteo> {
-    public Meteo getByDate(String date) throws Exception;
+    public Meteo getByDatej(String datej) throws Exception;
     public Meteo getByHeure(String heure) throws Exception;
-    public Meteo getByCondition(String condition) throws Exception;
+    public Meteo getByConditionc(String conditionc) throws Exception;
     public Meteo getByVit_vent(int vit_vent) throws Exception;
 }

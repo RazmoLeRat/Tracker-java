@@ -42,14 +42,14 @@ public class TestConsole {
 //        new VisionnageDataServiceJPAImpl("lml.snir.helloJsf_gestionAnime_war_1.0PU");
         
        Meteo pluie = new Meteo();
-       pluie.setCondition("Pluie");
-       pluie.setDate("15-12-2024");
+       pluie.setConditionc("Pluie");
+       pluie.setDatej("15-12-2024");
        pluie.setHeure("14h20");
        pluie.setVit_vent(12);
        
        Meteo vent = new Meteo();
-       pluie.setCondition("Vent");
-       pluie.setDate("16-01-2024");
+       pluie.setConditionc("Vent");
+       pluie.setDatej("16-01-2024");
        pluie.setHeure("18h20");
        pluie.setVit_vent(24);
        
@@ -65,8 +65,8 @@ public class TestConsole {
         PositionDataService pdsj = PhysiqueDataFactory.getPositionDataService();
         
         odsj.add(or);
-//       mdsj.add(pluie);        
-//       mdsj.add(vent);
+       mdsj.add(pluie);        
+       mdsj.add(vent);
         mdsj.add(m);
         
         pdsj.add(p);

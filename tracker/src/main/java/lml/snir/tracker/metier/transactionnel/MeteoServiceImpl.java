@@ -68,8 +68,8 @@ public class MeteoServiceImpl implements MeteoService {
     }
 
     @Override
-    public Meteo getByDate(String date) throws Exception {
-        return this.meteoSrv.getByDate(date);
+    public Meteo getByDatej(String datej) throws Exception {
+        return this.meteoSrv.getByDatej(datej);
     }
 
     @Override
@@ -78,8 +78,8 @@ public class MeteoServiceImpl implements MeteoService {
     }
 
     @Override
-    public Meteo getByCondition(String condition) throws Exception {
-        return this.meteoSrv.getByCondition(condition);
+    public Meteo getByConditionc(String conditionc) throws Exception {
+        return this.meteoSrv.getByConditionc(conditionc);
     }
 
     @Override
