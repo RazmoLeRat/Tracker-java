@@ -17,15 +17,6 @@ import lml.snir.tracker.physique.data.TrackerDataServiceJPAImpl;
 import lml.snir.tracker.physique.data.MeteoDataService;
 
 
-
-
-
-
-
-
-
-
-
 /**
  *
  * @author Matéo
