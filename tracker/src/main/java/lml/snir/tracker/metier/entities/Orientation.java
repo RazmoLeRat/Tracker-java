@@ -40,7 +40,9 @@ public class Orientation implements Serializable {
 //        this.nb_journee = nb_journee;
         this.orient = orient;
     }
+    
 
+    
     public long getId() {
         return this.id;
     }

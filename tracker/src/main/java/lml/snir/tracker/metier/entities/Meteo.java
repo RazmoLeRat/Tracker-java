@@ -1,11 +1,17 @@
 package lml.snir.tracker.metier.entities;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import javax.persistence.Transient;
 
 /**
  *
@@ -13,7 +19,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "Meteo")
-
+@XmlRootElement
 public class Meteo implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -26,13 +32,24 @@ public class Meteo implements Serializable {
     private String conditionc;
     private int vit_vent;
 
+    @Transient
+    SimpleDateFormat days = new SimpleDateFormat("dd-MM-yyyy");
+    @Transient
+    SimpleDateFormat hours = new SimpleDateFormat("kk:mm");
+
     public Meteo() {
     }
 
-    public Meteo(String datej, String heure, String conditionc, int vit_vent) {
+    public Meteo(String conditionc, int vit_vent) {
+
+        Date d = new Date();
+        
+        String today = days.format(d);
+        String tdh = hours.format(d);
+
         this.conditionc = conditionc;
-        this.datej = datej;
-        this.heure = heure;
+        this.datej = today;
+        this.heure = tdh;
         this.vit_vent = vit_vent;
     }
 

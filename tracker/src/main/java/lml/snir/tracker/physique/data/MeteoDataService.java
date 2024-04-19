@@ -5,6 +5,8 @@
  */
 package lml.snir.tracker.physique.data;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import lml.snir.persistence.CrudService;
 import lml.snir.tracker.metier.entities.Meteo;
 

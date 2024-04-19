@@ -20,12 +20,28 @@ public class Position implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private String pos_map;
+    private String pos_map = "45.77680266269328, 4.877144493873817";
+
+    private double latitude;
+    private double longitude;
 
     public Position() {
     }
 
+
     public Position(String pos_map) {
+        String[] pos = pos_map.split(" ");
+        String str = pos[0];
+
+        if (str != null && str.length() > 0 && str.charAt(str.length() - 1) == ',') {
+            str = str.substring(0, str.length() - 1);
+        }
+
+        pos[0] = str;
+
+        latitude = Double.parseDouble(pos[0]);
+        longitude = Double.parseDouble(pos[1]);
+
         this.pos_map = pos_map;
     }
 
@@ -40,7 +56,6 @@ public class Position implements Serializable {
 //    public void convert(Object aString_pos_map) {
 //        throw new UnsupportedOperationException();
 //    }
-
     public String getPos_map() {
         return this.pos_map;
     }

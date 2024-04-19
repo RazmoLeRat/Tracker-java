@@ -5,6 +5,8 @@
  */
 package lml.snir.tracker.physique.data;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import lml.snir.persistence.jpa.AbstracCrudServiceJPA;
