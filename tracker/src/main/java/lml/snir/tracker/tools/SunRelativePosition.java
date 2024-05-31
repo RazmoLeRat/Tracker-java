@@ -23,6 +23,7 @@ package lml.snir.tracker.tools;
 import java.awt.geom.Point2D;
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
@@ -33,6 +34,8 @@ import lml.snir.tracker.metier.entities.Orientation;
 import lml.snir.tracker.metier.entities.Position;
 import lml.snir.tracker.metier.transactionnel.OrientationService;
 import lml.snir.tracker.metier.transactionnel.PositionService;
+import lml.snir.tracker.physique.data.OrientationDataService;
+import lml.snir.tracker.physique.data.PhysiqueDataFactory;
 
 /**
  * Calcule la position du soleil relativement à la position de l'observateur.
@@ -311,20 +314,20 @@ public class SunRelativePosition {
         double e = eccentricityEarthOrbit(t);
         double y = Math.tan(eps / 2);
         y *= y;
-        
+
         double sin2l0 = Math.sin(2 * l0);
         double cos2l0 = Math.cos(2 * l0);
         double sin4l0 = Math.sin(4 * l0);
         double sin1m = Math.sin(m);
         double sin2m = Math.sin(2 * m);
-        
+
         double etime
                 = y * sin2l0
                 - 2 * e * sin1m
                 + 4 * e * y * sin1m * cos2l0
                 - 0.5 * y * y * sin4l0
                 - 1.25 * e * e * sin2m;
-        
+
         return Math.toDegrees(etime) * 4.0;
     }
 //    /**
@@ -368,7 +371,7 @@ public class SunRelativePosition {
         }
         return refractionCorrection / 3600;
     }
-    
+
     private static double getRefractionCorrectedElevation(double e) {
         return 1735.0 + e * (-518.2 + e * (103.4 + e * (-12.79 + e * 0.711)));
     }
@@ -408,7 +411,7 @@ public class SunRelativePosition {
         //          2) Time as the centuries ellapsed since January 1, 2000 at 12:00 GMT.
         final double julianDay = Calendrier.julianDay(this.time);
         final double time = (julianDay - 2451545) / 36525;
-        
+
         double solarDec = sunDeclination(time);
         double eqTime = equationOfTime(time);
         this.noonTime
@@ -429,7 +432,7 @@ public class SunRelativePosition {
         // will still computed in degrees.
         latitude = Math.toRadians(latitude);
         solarDec = Math.toRadians(solarDec);
-        
+
         double csz
                 = Math.sin(latitude) * Math.sin(solarDec)
                 + Math.cos(latitude)
@@ -441,7 +444,7 @@ public class SunRelativePosition {
         if (csz < -1) {
             csz = -1;
         }
-        
+
         final double zenith = Math.acos(csz);
         final double azDenom = Math.cos(latitude) * Math.sin(zenith);
 
@@ -456,7 +459,7 @@ public class SunRelativePosition {
             if (azRad < -1) {
                 azRad = -1;
             }
-            
+
             azimuth = 180 - Math.toDegrees(Math.acos(azRad));
             if (trueSolarTime > 720) { // 720 minutes == 12 hours
                 azimuth = -azimuth;
@@ -471,7 +474,7 @@ public class SunRelativePosition {
         ////////////////////////////////////////////
         final double refractionCorrection = refractionCorrection(Math.toDegrees(zenith));
         final double solarZen = Math.toDegrees(zenith) - refractionCorrection;
-        
+
         elevation = 90 - solarZen;
         if (elevation < twilight) {
             // do not report azimuth & elevation after twilight
@@ -645,19 +648,19 @@ public class SunRelativePosition {
         final DateFormat format
                 = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT);
         format.setTimeZone(TimeZone.getTimeZone("UTC"));
-        
-        PositionService positionSrv = null;        
+
+        PositionService positionSrv = null;
         Position position = null;
-        
+
         try {
             positionSrv = MetierFactory.getPositionService();
             position = positionSrv.getById(1L);
-            
+
         } catch (Exception ex) {
             Logger.getLogger(SunRelativePosition.class.getName()).log(Level.SEVERE, null, ex);
-            
+
         }
-        
+
         double longitude = position.getLongitude();
         double latitude = position.getLatitude();
         Date time = new Date();
@@ -669,9 +672,9 @@ public class SunRelativePosition {
             case 1:
                 longitude = Double.parseDouble(args[0]); // fall through
         }
-        
+
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
-        
+
         final SunRelativePosition calculator = new SunRelativePosition();
         calculator.setDate(time);
         calculator.setCoordinate(longitude, latitude);
@@ -687,51 +690,61 @@ public class SunRelativePosition {
         System.out.println(calculator.getAzimuth());
         System.out.print("Noon date:  ");
         System.out.println(format.format(calculator.getNoonDate()));
-        
+
         System.out.println(time);
 
         // On ne garde que un digit après la virgule pour simplifier les calculs d'heure solaires
         // Cela n'a pas de répercursion sur l'efficacité du panneau selon les constructeurs.
         double delta = 4 + (Math.round(longitude * 100.0) / 100.0) * 4;
         System.out.println(delta);
-        
+
         delta = delta * 10;
         System.out.println(delta);
-        
+
         int minute = ((int) delta) / 10;
         double seconde = delta % 10;
         seconde = seconde / 10;
-        
-        System.out.println(minute + " minutes, " + seconde * 60 + " secondes");
-        
+
+        int sec = (int) (seconde * 60);
+
+        System.out.println(minute + " minutes, " + sec + " secondes");
+
         Calendar currentTimeNow = Calendar.getInstance();
         currentTimeNow.add(Calendar.MINUTE, minute);
-        currentTimeNow.add(Calendar.SECOND, (int) seconde);
-        
+        currentTimeNow.add(Calendar.SECOND, sec);
+
         Date solarHour = currentTimeNow.getTime();
         System.out.println(solarHour);
-        
-        OrientationService orientationSrv = null;        
-        Orientation orient = null;
+
+        SimpleDateFormat solarHourFormat = new SimpleDateFormat("HH:mm:ss");
+        SimpleDateFormat solarAngle = new SimpleDateFormat("HH");
+
         try {
-            // A revoir TOUT
+            OrientationDataService orientationDataSrv = PhysiqueDataFactory.getOrientationDataService();
+            Orientation orient = new Orientation();
+
+            String angle = solarAngle.format(solarHour);
+            int angleSolaire = Integer.valueOf(angle);
             
-            orient = new Orientation();
+            System.out.println(angle);
+            System.out.println(angleSolaire);
+            
+            
             // Attention Angle solaire a calculé
-            orient.setAngleSolaire(0);
+            orient.setAngleSolaire(angleSolaire * 15);
             orient.setElevation((int) calculator.getElevation());
 
             // Date UTC
             orient.setDate(format.format(time));
-            
-            // A revoir
-            orient.setHeure("16:03");
-            
-            orient = orientationSrv.add(orient);
-            
+
+            // Ajout de heure solaire
+            orient.setHeureSolaire(solarHourFormat.format(solarHour));
+
+            orient = orientationDataSrv.add(orient);
+
         } catch (Exception ex) {
-            
+
         }
-        
+
     }
 }
