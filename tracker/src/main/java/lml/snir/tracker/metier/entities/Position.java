@@ -1,6 +1,7 @@
 package lml.snir.tracker.metier.entities;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,6 +30,12 @@ public class Position implements Serializable {
     }
 
 
+    /**
+     * 
+     * @param pos_map 
+     * D'abord entrée la latitude puis la longitude séparé par une virgule et un espace
+     * exemple "45.77, 4.87"
+     */
     public Position(String pos_map) {
         String[] pos = pos_map.split(" ");
         String str = pos[0];
@@ -83,10 +90,30 @@ public class Position implements Serializable {
         return (this.hashCode() == obj.hashCode());
     }
 
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 41 * hash + (int) (this.getId() ^ (this.getId() >>> 32));
+        hash = 73 * hash + (int) (this.id ^ (this.id >>> 32));
+        hash = 73 * hash + Objects.hashCode(this.pos_map);
+        hash = 73 * hash + (int) (Double.doubleToLongBits(this.latitude) ^ (Double.doubleToLongBits(this.latitude) >>> 32));
+        hash = 73 * hash + (int) (Double.doubleToLongBits(this.longitude) ^ (Double.doubleToLongBits(this.longitude) >>> 32));
         return hash;
     }
+    
 }

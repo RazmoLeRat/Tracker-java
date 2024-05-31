@@ -23,8 +23,8 @@ public class Orientation implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private int inclinaison;
-    private int orient;
+    private int elevation;
+    private int angleSolaire;
     private String date;
     private String heure;
     @Transient
@@ -33,12 +33,12 @@ public class Orientation implements Serializable {
     public Orientation() {
     }
 
-    public Orientation(int inclinaison, int orient, String date, String heure) {
+    public Orientation(int elevation, int angleSolaire, String date, String heure) {
         this.date = date;
         this.heure = heure;
-        this.inclinaison = inclinaison;
+        this.elevation = elevation;
 //        this.nb_journee = nb_journee;
-        this.orient = orient;
+        this.angleSolaire = angleSolaire;
     }
     
 
@@ -51,20 +51,20 @@ public class Orientation implements Serializable {
         this.id = Id;
     }
 
-    public int getInclinaison() {
-        return this.inclinaison;
+    public int getElevation() {
+        return this.elevation;
     }
 
-    public void setInclinaison(int Inclinaison) {
-        this.inclinaison = Inclinaison;
+    public void setElevation(int elevation) {
+        this.elevation = elevation;
     }
 
-    public int getOrient() {
-        return this.orient;
+    public int getAngleSolaire() {
+        return this.angleSolaire;
     }
 
-    public void setOrient(int Orient) {
-        this.orient = Orient;
+    public void setAngleSolaire(int angleSolaire) {
+        this.angleSolaire = angleSolaire;
     }
 
     public String getDate() {
@@ -93,7 +93,7 @@ public class Orientation implements Serializable {
     
     @Override
     public String toString() {
-        return "(" + this.orient + ") ";
+        return "(" + this.angleSolaire + ") ";
     }
 
     @Override

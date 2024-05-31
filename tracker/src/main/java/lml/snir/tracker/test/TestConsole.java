@@ -16,6 +16,7 @@ import lml.snir.tracker.physique.data.PhysiqueDataFactory;
 import lml.snir.tracker.physique.data.TrackerDataService;
 import lml.snir.tracker.physique.data.TrackerDataServiceJPAImpl;
 import lml.snir.tracker.physique.data.MeteoDataService;
+import lml.snir.tracker.tools.*;
 
 /**
  *
@@ -31,13 +32,17 @@ public class TestConsole {
         TestConsole r = new TestConsole();
         try {
             r.test();
+            r.test_Soleil();
 
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
     }
 
-   
+   public void test_Soleil() throws Exception{
+       
+       
+   }
     
     public void test() throws Exception {
 //        new AnimeDataServiceJPAImpl("lml.snir.helloJsf_gestionAnime_war_1.0PU");

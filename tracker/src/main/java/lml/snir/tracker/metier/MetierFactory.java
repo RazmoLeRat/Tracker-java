@@ -13,35 +13,38 @@ import lml.snir.tracker.metier.transactionnel.MeteoService;
  *
  * @author Matéo
  */
+public class MetierFactory {
 
-public class MetierFactory {  
+    private static MeteoService meteoService;
 
-    private static MeteoService meteoService;    
-    public static MeteoService getMeteoService() throws Exception {  
+    public static MeteoService getMeteoService() throws Exception {
         if (meteoService == null) {
             meteoService = new MeteoServiceImpl();
         }
         return meteoService;
     }
-    
-    private static OrientationService orientationService;    
-    public static OrientationService getOrientationService() throws Exception {  
+
+    private static OrientationService orientationService;
+
+    public static OrientationService getOrientationService() throws Exception {
         if (orientationService == null) {
             orientationService = new OrientationServiceImpl();
         }
         return orientationService;
     }
-    
-    private static PositionService positionService;    
-    public static PositionService getPositionService() throws Exception {  
+
+    private static PositionService positionService = null;
+
+    public static PositionService getPositionService() throws Exception {
         if (positionService == null) {
             positionService = new PositionServiceImpl();
         }
         return positionService;
     }
-    
-    private static TrackerService trackerService;    
-    public static TrackerService getTrackerService() throws Exception {  
+
+    private static TrackerService trackerService;
+
+    public static TrackerService getTrackerService() throws Exception {
         if (trackerService == null) {
             trackerService = new TrackerServiceImpl();
         }
